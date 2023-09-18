@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tiktok_sdk/flutter_tiktok_sdk.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
 import 'package:tiktok_follower_count/tiktok_login_screen.dart';
 
 void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  TikTokSDK.instance.setup(clientKey: "7262531023253424133"
+);
+
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
 }

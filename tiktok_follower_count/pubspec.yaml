@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   http: ^0.13.3
   html: ^0.15.0
+  flutter_tiktok_sdk: ^0.2.6
+  
 
 dev_dependencies:
   flutter_test:
