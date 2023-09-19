@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tiktok_sdk/flutter_tiktok_sdk.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
-import 'package:tiktok_follower_count/tiktok_login_screen.dart';
+import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
 
 void main() async {
-   WidgetsFlutterBinding.ensureInitialized();
-  TikTokSDK.instance.setup(clientKey: "7262531023253424133"
-);
-
   WidgetsFlutterBinding.ensureInitialized();
+  TikTokSDK.instance.setup(clientKey: 'awiog55b91rr7em6');
+  await TiktokLoginFlutter.initializeTiktokLogin("awiog55b91rr7em6E");
+
   runApp(const MainApp());
 }
 
@@ -110,13 +109,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
             TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const TiktokLoginScreen()));
-                },
-                child: const Text("Go to Hanny screen"))
+              onPressed: () async {
+                var code = await TiktokLoginFlutter.authorize(
+                    "user.info.basic,video.list,video.upload");
+                debugPrint(code);
+              },
+              child: const Text("Authorize"),
+            ),
           ],
         ),
       ),
