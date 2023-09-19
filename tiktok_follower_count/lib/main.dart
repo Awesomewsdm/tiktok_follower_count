@@ -1,13 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tiktok_sdk/flutter_tiktok_sdk.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
-import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
+import 'package:tiktok_follower_count/certificates_string.dart';
+import 'package:tiktok_follower_count/tiktok_login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   TikTokSDK.instance.setup(clientKey: 'awiog55b91rr7em6');
-  await TiktokLoginFlutter.initializeTiktokLogin("awiog55b91rr7em6E");
+  ByteData data = await PlatformAssetBundle().load(crt);
+  SecurityContext.defaultContext.setTrustedCertificatesBytes(data.buffer.asUint8List());
 
   runApp(const MainApp());
 }
@@ -37,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> scrapeTikTokProfile(String username) async {
     setState(() {
-      isLoading = true; // Show loading indicator
+      isLoading = true; 
     });
 
     try {
@@ -56,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     setState(() {
-      isLoading = false; // Hide loading indicator
+      isLoading = false; 
     });
   }
 
@@ -109,10 +114,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
             TextButton(
-              onPressed: () async {
-                var code = await TiktokLoginFlutter.authorize(
-                    "user.info.basic,video.list,video.upload");
-                debugPrint(code);
+              onPressed: ()  {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> TiktokLoginScreen()));
               },
               child: const Text("Authorize"),
             ),
