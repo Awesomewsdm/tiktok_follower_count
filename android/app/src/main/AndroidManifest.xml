@@ -30,8 +30,10 @@
                 android:name="flutterEmbedding"
                 android:value="2" />
         </activity>
+        <activity
+            android:name="com.k9i.flutter_tiktok_sdk.TikTokEntryActivity"
+            android:exported="true" />
     </application>
-
     <queries>
         <package android:name="com.zhiliaoapp.musically" />
         <package android:name="com.ss.android.ugc.trill" />

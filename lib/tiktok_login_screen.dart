@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tiktok_sdk/flutter_tiktok_sdk.dart';
+import 'package:tiktok_follower_count/follower_count_screen.dart';
 
 class TiktokLoginScreen extends StatefulWidget {
   const TiktokLoginScreen({super.key});
@@ -47,11 +48,11 @@ class _TiktokLoginScreenState extends State<TiktokLoginScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const TiktokLoginScreen(),
+                    builder: (context) => const FollowerCountScreen(),
                   ),
                 );
               },
-              child: const Text("Go to user's"),
+              child: const Text("Go to Usersname"),
             ),
           ],
         ),
