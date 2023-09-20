@@ -51,7 +51,7 @@ class _TiktokLoginScreenState extends State<TiktokLoginScreen> {
                   ),
                 );
               },
-              child: const Text("Go to user's"),
+              child: const Text("Continue"),
             ),
           ],
         ),

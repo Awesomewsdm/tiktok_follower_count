@@ -1,6 +1,5 @@
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
-import 'package:tiktok_follower_count/tiktok_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 
@@ -89,17 +88,6 @@ class _FollowerCountScreenState extends State<FollowerCountScreen> {
                       fontSize: 28,
                     ),
                   ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TiktokLoginScreen(),
-                  ),
-                );
-              },
-              child: const Text("Authorize"),
-            ),
           ],
         ),
       ),
