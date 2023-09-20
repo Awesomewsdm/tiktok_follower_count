@@ -1,0 +1,1 @@
+const String crt = "assets/ca/my_certificate.crt";

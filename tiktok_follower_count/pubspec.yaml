@@ -14,7 +14,11 @@ dependencies:
   flutter_tiktok_sdk: ^0.2.6
   webview_flutter: ^4.2.4
   flutter_web_auth: ^0.5.0
+<<<<<<< HEAD
   change_app_package_name: ^1.1.0
+=======
+  
+>>>>>>> 03baf2a7b992bd987b77c08991a8dce6bc8c1ced
   
 
 dev_dependencies:
@@ -26,3 +30,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/ca/
