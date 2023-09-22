@@ -24,12 +24,13 @@ class _TiktokLoginScreenState extends State<TiktokLoginScreen> {
           children: [
             ElevatedButton(
               onPressed: () async {
-                final result = await TikTokSDK.instance.login(
-                  permissions: {
-                    TikTokPermissionType.userInfoBasic,
-                    TikTokPermissionType.userInfoStats,
-                  },
-                );
+                final result = TikTokSDK.instance
+                  ..login(
+                    permissions: {
+                      TikTokPermissionType.userInfoBasic,
+                      TikTokPermissionType.userInfoStats,
+                    },
+                  );
                 setState(() => loginResult = result.toString());
                 print('Login result: $loginResult');
               },
