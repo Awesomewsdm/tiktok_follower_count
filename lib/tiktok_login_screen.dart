@@ -36,12 +36,12 @@ class _TiktokLoginScreenState extends State<TiktokLoginScreen> {
                     TikTokPermissionType.userInfoStats,
                   },
                 );
-                codeVerifier = generateCodeVerifier();
-                print(codeVerifier);
+                // codeVerifier = generateCodeVerifier();
+                // print(codeVerifier);
                 setState(
                   () => userAuthCode = result.authCode.toString(),
                 );
-                print('Login result: $userAuthCode');
+                // print('Login result: $userAuthCode');
               },
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +52,7 @@ class _TiktokLoginScreenState extends State<TiktokLoginScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            Text('Login result: $userAuthCode'),
+            // Text('Login result: $userAuthCode'),
             ElevatedButton(
               onPressed: () => Navigator.push(
                   context,
@@ -63,7 +63,7 @@ class _TiktokLoginScreenState extends State<TiktokLoginScreen> {
                           ))),
               child: const Text("Go to Profile"),
             ),
-            Text('code verifier result: $codeVerifier'),
+            // Text('code verifier result: $codeVerifier'),
           ],
         ),
       ),

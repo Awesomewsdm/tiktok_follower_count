@@ -15,7 +15,7 @@ class UserProfileScreen extends StatelessWidget {
         title: const Text('User Profile'),
       ),
       body: FutureBuilder<UserData>(
-        future: fetchData(),
+        future: fetchData(userAuthCode, codeVerifier),
         builder: (BuildContext context, AsyncSnapshot<UserData> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

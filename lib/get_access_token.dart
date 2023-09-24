@@ -15,7 +15,7 @@ String generateRandomRef(int refLength) {
 }
 
 String generateCodeVerifier() {
-  final codeVerifier = generateRandomRef(20);
+  final codeVerifier = generateRandomRef(43);
   final bytes = utf8.encode(codeVerifier);
   final digest = sha256.convert(bytes);
   final codeChallenge = base64UrlEncode(digest.bytes);
