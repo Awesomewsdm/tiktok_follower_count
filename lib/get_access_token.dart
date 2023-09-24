@@ -1,12 +1,30 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:http/http.dart' as http;
+import 'package:crypto/crypto.dart';
 
-const String clientKey = 'awiog55b91rr7em6';
-const String clientSecret = '5362dfbd81d9f35147fa421230a038ec';
-const String userAuthCode =
-    '_tV8GOhonxAO5b1Ykl-4PICZzB9IoDImGPp6Ty1JdIaWtA2X9P1tuR8D8ZkyUU8DJBmOwSl5buJ6c-gDPS2FpHEhUV7_Bw3Rvl7ea5HZzDz2lhT0c9QrUJ2IvdHwTAPh4C2lAx6jDvhTnH07dB232g*3!5039';
+String generateRandomRef(int refLength) {
+  final random = Random();
+  const allChars =
+      "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
+  final randomString = List.generate(
+    refLength,
+    (index) => allChars[random.nextInt(allChars.length)],
+  ).join();
+  return randomString;
+}
 
-Future<String> getAccessToken(String authCode) async {
+String generateCodeVerifier() {
+  final codeVerifier = generateRandomRef(20);
+  final bytes = utf8.encode(codeVerifier);
+  final digest = sha256.convert(bytes);
+  final codeChallenge = base64UrlEncode(digest.bytes);
+  return codeChallenge;
+}
+
+Future<String> getAccessToken(String authCode, String codeVerifier) async {
+  const String clientKey = 'awiog55b91rr7em6';
+  const String clientSecret = '5362dfbd81d9f35147fa421230a038ec';
   const String url = 'https://open.tiktokapis.com/v2/oauth/token/';
   final Map<String, String> headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
@@ -18,6 +36,7 @@ Future<String> getAccessToken(String authCode) async {
     'code': authCode,
     'grant_type': 'authorization_code',
     'redirect_uri': 'https://api.sourceimpact.io/api/v1/tiktok/login/',
+    'code_verifier': codeVerifier,
   };
 
   final http.Response response = await http.post(

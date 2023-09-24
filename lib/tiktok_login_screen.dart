@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tiktok_sdk/flutter_tiktok_sdk.dart';
-import 'package:tiktok_follower_count/fetch_user_data.dart';
 import 'package:tiktok_follower_count/get_access_token.dart';
+import 'package:tiktok_follower_count/user_profile_screen.dart';
+import 'package:tiktok_follower_count/user_data_model.dart';
 
 class TiktokLoginScreen extends StatefulWidget {
   const TiktokLoginScreen({super.key});
@@ -11,7 +12,11 @@ class TiktokLoginScreen extends StatefulWidget {
 }
 
 class _TiktokLoginScreenState extends State<TiktokLoginScreen> {
-  String loginResult = '';
+  String userAuthCode = '';
+  UserData? userData;
+  bool isLoading = false;
+  String username = "";
+  String codeVerifier = "";
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +36,12 @@ class _TiktokLoginScreenState extends State<TiktokLoginScreen> {
                     TikTokPermissionType.userInfoStats,
                   },
                 );
-                setState(() => loginResult = result.toString());
-                print('Login result: $loginResult');
+                codeVerifier = generateCodeVerifier();
+                print(codeVerifier);
+                setState(
+                  () => userAuthCode = result.authCode.toString(),
+                );
+                print('Login result: $userAuthCode');
               },
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -43,14 +52,18 @@ class _TiktokLoginScreenState extends State<TiktokLoginScreen> {
               ),
             ),
             const SizedBox(height: 16),
-            Text('Login result: $loginResult'),
+            Text('Login result: $userAuthCode'),
             ElevatedButton(
-              onPressed: () async {
-                var accessToken = await getAccessToken(loginResult);
-                var userData = await fetchUserData(accessToken);
-              },
-              child: const Text("Go to Usersname"),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UserProfileScreen(
+                            userAuthCode: userAuthCode,
+                            codeVerifier: codeVerifier,
+                          ))),
+              child: const Text("Go to Profile"),
             ),
+            Text('code verifier result: $codeVerifier'),
           ],
         ),
       ),
