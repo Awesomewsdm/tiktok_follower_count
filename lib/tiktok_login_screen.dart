@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tiktok_sdk/flutter_tiktok_sdk.dart';
-import 'package:tiktok_follower_count/follower_count_screen.dart';
+import 'package:tiktok_follower_count/fetch_user_data.dart';
+import 'package:tiktok_follower_count/get_access_token.dart';
 
 class TiktokLoginScreen extends StatefulWidget {
   const TiktokLoginScreen({super.key});
@@ -44,13 +45,9 @@ class _TiktokLoginScreenState extends State<TiktokLoginScreen> {
             const SizedBox(height: 16),
             Text('Login result: $loginResult'),
             ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const FollowerCountScreen(),
-                  ),
-                );
+              onPressed: () async {
+                var accessToken = await getAccessToken(loginResult);
+                var userData = await fetchUserData(accessToken);
               },
               child: const Text("Go to Usersname"),
             ),
